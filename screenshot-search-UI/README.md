@@ -1,67 +1,59 @@
-# Screenshot Search App
+# ScreenshotSearchUI
 
-This project explores how semantic search can be integrated into applications with minimal cost and infrastructure.
-It enables screenshot uploads, text extraction via OCR, and meaning-based search rather than relying solely on exact keyword matching.
-For example, a search for "invoice" will also return results for "receipt".
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
 
-The implementation demonstrates that affordable or free AI endpoints can be used to generate embeddings, vectors can be stored locally in SQLite, and vector similarity searches can be performed without dedicated vector databases or costly services — making semantic search accessible for a wide range of projects.
+## Development server
 
----
+To start a local development server, run:
 
-## Features
-- Upload screenshots via a clean web UI
-- Search by semantic meaning (vector embeddings)
-- OCR text extraction from screenshots
-- Fast similarity search using SQLite
-- Built with Angular + Angular Material for a modern UI
-- C# .NET backend with AI integration
-
----
-
-## Tech Stack
-
-**Frontend:**
-- Angular 19
-- Angular Material
-
-**Backend:**
-- ASP.NET Core Web API
-- Cloudflare Workers AI REST API for embeddings
-- Entity Framework with SQLite (vector search)
-- OCR via [Tesseract](https://github.com/tesseract-ocr/tesseract)
-
----
-
-## Project Structure
-/screenshot-search-API  
-/screenshot-search-UI
-
-## Installation
-
-### 1️⃣ Clone the repo
-git clone https://github.com/arealper/screenshot-search.git  
-cd screenshot-search
-
-
-### 2️⃣ Backend setup
-cd screenshot-search-API  
-dotnet restore  
-dotnet ef database update  
-dotnet run  
-
-> **Note**  
-> This project uses **SQLite** as the database, stored locally in the `data` folder.  
-> No external database or paid vector database services are required — all data and embeddings are stored locally.  
-> However, you will need a **free Cloudflare account** to obtain API credentials for generating embeddings.
-
-
-### 3️⃣ Frontend setup
-cd /screenshot-search-UI  
-npm install  
+```bash
 ng serve
+```
 
-## How it Works
-Upload a screenshot → backend saves the file and extracts text with OCR.  
-Generate Embeddings → Uses Cloudflare AI endpoints to transform text into numerical vector embeddings for semantic search.  
-Store in SQLite → vectors and metadata are stored locally.  
-Search → user query is embedded and compared via cosine similarity to find the most relevant screenshots.
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+
+```bash
+ng generate component component-name
+```
+
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+ng generate --help
+```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
