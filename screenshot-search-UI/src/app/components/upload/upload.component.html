@@ -1,0 +1,42 @@
+<div class="upload-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>📤 Upload Screenshot</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="file-input-wrapper">
+        <input
+          type="file"
+          #fileInput
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          hidden
+        />
+        <button mat-stroked-button color="primary" (click)="fileInput.click()">
+          Choose File
+        </button>
+        <span class="file-name">{{ selectedFile?.name || 'No file chosen' }}</span>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="onUpload()"
+        [disabled]="!selectedFile"
+        class="upload-button"
+      >
+        Upload
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+@if(result){
+<div>
+    <h3>Upload Result</h3>
+    <pre>{{ result | json }}</pre>
+</div>
+}

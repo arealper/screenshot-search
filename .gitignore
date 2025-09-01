@@ -1,0 +1,53 @@
+# ======== .NET Core / ASP.NET Core ========
+
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+db/
+
+# ======== Angular ========
+
+# Compiled output
+/dist
+/out-tsc
+
+# Dependencies
+/node_modules
+
+# IDE/editor folders
+.vscode/
+*.swp
+*.swo
+
+# Cache
+.angular/
+.angular/cache/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Build artifacts
+coverage/

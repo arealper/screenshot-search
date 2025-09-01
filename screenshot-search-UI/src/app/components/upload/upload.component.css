@@ -1,0 +1,24 @@
+.upload-container {
+    display: flex;
+    justify-content: center;
+}
+
+mat-card {
+    width: 400px;
+}
+
+.file-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.file-name {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.upload-button {
+    margin-top: 20px;
+}
