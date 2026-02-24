@@ -7,12 +7,15 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     @Inject(GLOBAL_CONFIG) private config: AppConfig
-  ) {}
+  ) { }
 
   upload(file: File) {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(`${this.config.apiUrl}/api/upload`, formData);
+    return this.http.post(`${this.config.apiUrl}/api/upload`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 
   search(query: string) {

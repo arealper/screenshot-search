@@ -9,8 +9,8 @@ public class EmbeddingService
 
     public EmbeddingService(HttpClient http, IConfiguration config)
     {
-        var apiKey = config["CLOUDFARE_API_KEY"] ?? throw new Exception("HuggingFace API key missing");
-        accountId = config["ACCOUNT_ID"] ?? throw new Exception("Cloudfare AccountId missing");
+        var apiKey = config["CLOUDFLARE_API_KEY"] ?? throw new Exception("Cloudflare API key missing");
+        accountId = config["ACCOUNT_ID"] ?? throw new Exception("Cloudflare AccountId missing");
         _http = http;
         _http.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
     }

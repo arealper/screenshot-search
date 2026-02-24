@@ -1,4 +1,7 @@
-﻿using Tesseract;
+﻿using System.Text;
+using Windows.Globalization;
+using Windows.Graphics.Imaging;
+using Windows.Media.Ocr;
 
 namespace ScreenshotSearchApi.Services;
 
@@ -6,10 +9,7 @@ public class OcrService
 {
     public string ExtractText(string imagePath)
     {
-        using var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default);
-        using var img = Pix.LoadFromFile(imagePath);
-        using var page = engine.Process(img);
-        var text = page.GetText();
+        var text = GetTextFromBitmap(imagePath).Result;
         return CleanOcrText(text);
     }
 
@@ -27,5 +27,24 @@ public class OcrService
 
         // 4. Lowercase
         return cleaned.Trim().ToLowerInvariant();
+    }
+
+    public static async Task<string> GetTextFromBitmap(string filePath)
+    {
+        StringBuilder text = new();
+
+        await using (var fileStream = File.OpenRead(filePath))
+        {
+            var bmpDecoder =
+                await BitmapDecoder.CreateAsync(fileStream.AsRandomAccessStream());
+            var softwareBmp = await bmpDecoder.GetSoftwareBitmapAsync();
+
+            var ocrEngine = OcrEngine.TryCreateFromLanguage(new Language("en-US"));
+            var ocrResult = await ocrEngine.RecognizeAsync(softwareBmp);
+
+            foreach (var line in ocrResult.Lines) text.AppendLine(line.Text);
+        }
+
+        return text.ToString();
     }
 }

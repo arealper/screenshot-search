@@ -1,9 +1,12 @@
-<mat-toolbar color="primary">
-  <span>Screenshot Search</span>
+<mat-toolbar color="primary" component="nav">
+  <div class="logo">
+    <span>📸 Screenshot Search</span>
+  </div>
   <span class="spacer"></span>
-  <a mat-button routerLink="/upload">Upload</a>
-  <a mat-button routerLink="/search">Search</a>
+  <a mat-button routerLink="/upload" class="nav-link">Upload</a>
+  <a mat-button routerLink="/search" class="nav-link">Search</a>
 </mat-toolbar>
-<div class="content">
+
+<main class="content">
   <router-outlet></router-outlet>
-</div>
+</main>

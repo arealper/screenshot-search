@@ -21,6 +21,8 @@ obj/
 
 # Environment variables
 .env
+.secret.json
+.secret.txt
 
 # Database
 *.db

@@ -1,42 +1,59 @@
 <div class="upload-container">
-  <mat-card>
+  <mat-card class="upload-card">
     <mat-card-header>
-      <mat-card-title>📤 Upload Screenshot</mat-card-title>
+      <h1 class="upload-title">Upload Screenshot</h1>
     </mat-card-header>
 
     <mat-card-content>
-      <div class="file-input-wrapper">
-        <input
-          type="file"
-          #fileInput
-          (change)="onFileSelected($event)"
-          accept="image/*"
-          hidden
-        />
-        <button mat-stroked-button color="primary" (click)="fileInput.click()">
-          Choose File
-        </button>
-        <span class="file-name">{{ selectedFile?.name || 'No file chosen' }}</span>
+      <div class="drop-zone clickable" (click)="fileInput.click()">
+        <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" hidden />
+        <span style="font-size: 3rem;">📁</span>
+        @if (selectedFile) {
+        <span class="file-name">{{ selectedFile.name }}</span>
+        } @else {
+        <span class="placeholder-text">Click to browse or drag and drop image here</span>
+        }
       </div>
+
+      @if (uploadStatus === 'uploading') {
+      <div class="progress-section">
+        <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+        <p class="progress-text">Uploading... {{ uploadProgress }}%</p>
+      </div>
+      }
+
+      @if (uploadStatus === 'success') {
+      <div class="status-box success">
+        <span class="status-icon">✅</span>
+        <div class="status-content">
+          <p class="status-heading">{{ message }}</p>
+          <div class="extracted-text-preview">
+            <span class="label">Extracted Text:</span>
+            <p>{{ extractedText }}</p>
+          </div>
+        </div>
+      </div>
+      }
+
+      @if (uploadStatus === 'error') {
+      <div class="status-box error">
+        <span class="status-icon">❌</span>
+        <p>{{ message }}</p>
+      </div>
+      }
     </mat-card-content>
 
-    <mat-card-actions>
-      <button
-        mat-raised-button
-        color="accent"
-        (click)="onUpload()"
-        [disabled]="!selectedFile"
-        class="upload-button"
-      >
-        Upload
+    <mat-card-actions class="action-buttons">
+      @if (uploadStatus === 'success') {
+      <button mat-raised-button color="primary" (click)="reset()" class="big-button">
+        Upload Another
       </button>
+      } @else {
+      <button mat-raised-button color="primary" (click)="onUpload()" [disabled]="!selectedFile || isUploading"
+        class="big-button">
+        {{ isUploading ? 'Uploading...' : 'Start Upload' }}
+      </button>
+      }
     </mat-card-actions>
   </mat-card>
 </div>
-
-@if(result){
-<div>
-    <h3>Upload Result</h3>
-    <pre>{{ result | json }}</pre>
-</div>
-}

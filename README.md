@@ -18,6 +18,32 @@ The implementation demonstrates that affordable or free AI endpoints can be used
 
 ---
 
+## Screenshots
+
+### Upload Page
+
+Allows users to upload screenshots for processing.
+The application extracts text using OCR, generates embeddings, and stores the data in SQLite for semantic search.
+
+<p align="center">
+  <a href="docs/screenshots/01-upload.png">
+    <img src="docs/screenshots/01-upload.png" width="500">
+  </a>
+</p>
+
+### Search Page
+
+The search page allows users to find screenshots based on semantic meaning rather than exact keyword matches.
+Users can enter natural language queries such as "invoice", "payment confirmation", or "error message". The system converts the query into an embedding and compares it against stored vectors using similarity search.
+
+<p align="center">
+  <a href="docs/screenshots/02-search.png">
+    <img src="docs/screenshots/02-search.png" width="500">
+  </a>
+</p>
+
+---
+
 ## Tech Stack
 
 **Frontend:**

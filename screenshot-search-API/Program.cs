@@ -24,7 +24,21 @@ builder.Services.AddCors(options =>
                         .AllowAnyMethod());
 });
 
+// Add configuration files
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.secret.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+}
 
 if (app.Environment.IsDevelopment())
 {

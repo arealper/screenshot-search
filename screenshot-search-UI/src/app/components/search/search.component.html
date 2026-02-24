@@ -1,26 +1,35 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>🔎 Search Screenshots</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Type your search query</mat-label>
-            <input matInput [(ngModel)]="query" (keyup.enter)="onSearch()" placeholder="e.g. invoice">
-        </mat-form-field>
+<div class="search-container">
+    <h1 class="hero-title">Intelligent Screenshot Search</h1>
+    <p class="hero-subtitle">Find anything inside your screenshots with semantic search</p>
 
-        <button mat-raised-button color="primary" (click)="onSearch()">Search</button>
-    </mat-card-content>
-</mat-card>
+    <mat-form-field appearance="outline" class="search-field">
+        <mat-label>What are you looking for?</mat-label>
+        <input matInput [(ngModel)]="query" (keyup.enter)="onSearch()"
+            placeholder="e.g. invoice, payment, instructions...">
+        <button mat-icon-button matSuffix (click)="onSearch()" color="primary">
+            <span style="font-size: 1.5rem;">🔍</span>
+        </button>
+    </mat-form-field>
+</div>
 
-@if(results.length > 0){
-<h3>Results</h3>
-<ul>
-    @for(r of results; track $index){
-    <li class="result-text">
-        <img  class="clickable" [src]="r.filePath" alt="Screenshot" width="100" (click)="openImage(r.filePath)">
-        <p>{{ r.extractedText }}</p>
-        <small>Score: {{ r.score | number:'1.2-2' }}</small>
-    </li>
+@if(results.length > 0) {
+<div class="results-grid">
+    @for(r of results; track $index) {
+    <mat-card class="result-card" (click)="openImage(r.filePath)">
+        <div class="image-container">
+            <img class="result-image" [src]="r.filePath" alt="Screenshot">
+            <div class="score-badge">
+                {{ (r.score * 100) | number:'1.0-0' }}% Match
+            </div>
+        </div>
+        <mat-card-content class="result-info">
+            <p class="extracted-text">{{ r.extractedText }}</p>
+        </mat-card-content>
+    </mat-card>
     }
-</ul>
+</div>
+} @else if (query && results.length === 0) {
+<div class="no-results">
+    <p>No matches found for "{{ query }}". Try a different query.</p>
+</div>
 }
